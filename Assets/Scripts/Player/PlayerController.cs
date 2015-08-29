@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 		float moveRate,horizontal = Input.GetAxis("Horizontal");
 		 current_stateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
 		if(current_stateInfo.IsTag("NormalAttack") || current_stateInfo.IsTag("SkillAttack")) {
-            if(current_stateInfo.IsTag("SkillAttack") && ((int)skillActions[(skill_index + skillActions.Count - 1) % skillActions.Count] == 6)) transform.Translate(Time.deltaTime * GlobalValue.skill_6_moveSpeed * direction * Vector3.right);
+            if(current_stateInfo.IsTag("SkillAttack") && (current_stateInfo.IsName("Skill_6"))) transform.Translate(Time.deltaTime * GlobalValue.skill_6_moveSpeed * direction * Vector3.right);
             if (toAttack) {
                 if (current_stateInfo.IsTag("NormalAttack"))
                     playEffect((int)attackActions[(normalAttack_index + attackActions.Count - 1) % attackActions.Count] - 1, 1);
