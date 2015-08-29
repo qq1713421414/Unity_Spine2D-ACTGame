@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	public float move_spped = 5;
 	public float jump_speed = 10;
 	public float sprint_speed = 10;//shift速度
+    public AttackEffect atk_effect1;
+    public AttackEffect atk_effect2;
 	private ArrayList attackActions;//普通攻击序列
 	private ArrayList skillActions;//技能攻击序列
 	private int normalAttack_index = 0;
@@ -18,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 	private bool toAttack = true;//是否首次进入攻击状态
 	private Animator m_animator;
 	private AnimatorStateInfo current_stateInfo;
-	private string current_state = "Idle";
+	private string current_state = "Idle";//默认初始状态为Idle
 	
 	// Use this for initialization
 	void Start () {
@@ -46,8 +48,12 @@ public class PlayerController : MonoBehaviour {
 		float moveRate,horizontal = Input.GetAxis("Horizontal");
 		 current_stateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
 		if(current_stateInfo.IsTag("NormalAttack") || current_stateInfo.IsTag("SkillAttack")) {
-			if(toAttack) {
-				m_animator.SetInteger("attackAction", 0);
+            if(current_stateInfo.IsTag("SkillAttack") && ((int)skillActions[(skill_index + skillActions.Count - 1) % skillActions.Count] == 6)) transform.Translate(Time.deltaTime * GlobalValue.skill_6_moveSpeed * direction * Vector3.right);
+            if (toAttack) {
+                if (current_stateInfo.IsTag("NormalAttack"))
+                    playEffect((int)attackActions[(normalAttack_index + attackActions.Count - 1) % attackActions.Count] - 1, 1);
+                else playEffect((int)skillActions[(skill_index + skillActions.Count - 1) % skillActions.Count] - 1, 2);
+                m_animator.SetInteger("attackAction", 0);
 				m_animator.SetInteger("skillAction", 0);
 				toAttack = false;
 			}
@@ -87,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 				else if(Input.GetButtonDown("Fire1")) {
 					normalAttack_index = 0;
 					m_animator.SetInteger("attackAction", (int)attackActions[normalAttack_index]);
-					normalAttack_index = (normalAttack_index+1)%attackActions.Count;
+                    normalAttack_index = (normalAttack_index+1)%attackActions.Count;
 				}
 				else if(Input.GetButtonDown("Jump")) {
 					m_animator.SetBool("shift", true);
@@ -133,6 +139,15 @@ public class PlayerController : MonoBehaviour {
 		current_state = curState;
 		GameObject.Find("KarateGirl/model/Collider/"+curState).SetActive(true);
 	}
+
+    void playEffect(int index, int type) {
+        if (atk_effect1.isPlaying())
+        {
+            atk_effect2.setEffect(index, type, transform.position, transform.localScale.x);
+        }
+        else atk_effect1.setEffect(index, type, transform.position, transform.localScale.x);
+    }
+
 	//设置技能队列
 	public void setComboQueue(int[] queue) {
 		skillActions.Clear();
@@ -141,4 +156,5 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 	
+
 }
