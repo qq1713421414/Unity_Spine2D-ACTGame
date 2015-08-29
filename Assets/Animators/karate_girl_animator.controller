@@ -3049,7 +3049,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Skill_6
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110174974}
@@ -3776,13 +3776,13 @@ AnimatorStateMachine:
       first: {fileID: 110755518}
       second: []
     data:
-      first: {fileID: 110775812}
-      second: []
-    data:
       first: {fileID: 110746346}
       second: []
     data:
       first: {fileID: 110714246}
+      second: []
+    data:
+      first: {fileID: 110775812}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -228, y: 24, z: 0}
@@ -3818,7 +3818,7 @@ AnimatorStateMachine:
     m_Position: {x: 552, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110233900}
-    m_Position: {x: 552, y: 168, z: 0}
+    m_Position: {x: 576, y: 180, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -3902,16 +3902,16 @@ AnimatorStateMachine:
       first: {fileID: 0}
       second: []
     data:
-      first: {fileID: 110775812}
-      second: []
-    data:
-      first: {fileID: 110782116}
-      second: []
-    data:
       first: {fileID: 110746346}
       second: []
     data:
       first: {fileID: 110714246}
+      second: []
+    data:
+      first: {fileID: 110775812}
+      second: []
+    data:
+      first: {fileID: 110782116}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 72, y: -252, z: 0}
